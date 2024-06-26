@@ -1,8 +1,8 @@
 from __future__ import print_function
 import sys
-from fasta import Fasta, complement, DuplicateHeaderException
-from records import *
-from split_fasta import split
+from .fasta import Fasta, complement, DuplicateHeaderException
+from .records import *
+from .split_fasta import split
 import optparse
 
 def main():
@@ -65,7 +65,7 @@ def info(args):
 
     for fasta in fastas:
         f = Fasta(fasta)
-        info = [(k, len(seq)) for k, seq in f.iteritems()]
+        info = [(k, len(seq)) for k, seq in f.items()]
 
         total_len = sum(l for k, l in info)
         nseqs = len(f)
@@ -128,7 +128,7 @@ def extract(args):
     if options.file:
         seqs = (x.strip() for x in open(seqs[0]))
     if options.exclude:
-        seqs = sorted(frozenset(f.iterkeys()).difference(seqs))
+        seqs = sorted(frozenset(f.keys()).difference(seqs))
 
     for seqname in seqs:
         seq = f[seqname]

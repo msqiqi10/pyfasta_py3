@@ -1,4 +1,5 @@
-import cPickle
+# import cPickle
+import pickle as cPickle
 import numpy as np
 import sys
 import os
@@ -124,7 +125,7 @@ class FastaRecord(object):
         fh.seek(self.start)
 
 
-        if isinstance(islice, (int, long)):
+        if isinstance(islice, (int)):
             if islice < 0:
                 if -islice > self.stop - self.start:
                     raise IndexError
@@ -134,7 +135,7 @@ class FastaRecord(object):
             return fh.read(1)
 
         # [:]
-        if islice.start in (0, None) and islice.stop in (None, sys.maxint):
+        if islice.start in (0, None) and islice.stop in (None, sys.maxsize):
             if islice.step in (1, None):
                 return fh.read(self.stop - self.start)
             return fh.read(self.stop - self.start)[::islice.step]
@@ -166,7 +167,7 @@ class FastaRecord(object):
             'shape': (len(self), ),
             'typestr': '|S1',
             'version': 3,
-            'data': buffer(self)
+            'data': memoryview(self)
         }
 
 
@@ -189,7 +190,7 @@ class NpyFastaRecord(FastaRecord):
         return mm
 
     def getdata(self, islice):
-        if isinstance(islice, (int, long)):
+        if isinstance(islice, (int)):
             if islice >= 0:
                 islice += self.start
             else:

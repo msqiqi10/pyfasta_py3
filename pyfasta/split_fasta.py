@@ -5,7 +5,8 @@ import collections
 import string
 import sys
 import optparse
-from cStringIO import StringIO
+# import io.StringIO as StringIO
+from io import StringIO
 
 
 def newnames(oldname, n, kmers=None, overlap=None, header=None):
@@ -225,7 +226,7 @@ def find_name_from_len(lmin, lens):
     >>> find_name_from_len(5, lens)
     'chr2'
     """
-    for fname, l in lens.iteritems():
+    for fname, l in lens.items():
         if l == lmin: 
             return fname
     raise Exception('name not found')

@@ -1,11 +1,11 @@
 from __future__ import print_function
 import string
 import os.path
-from collections import Mapping
+from collections.abc import Mapping
 import sys
 import numpy as np
 
-from records import NpyFastaRecord
+from .records import NpyFastaRecord
 
 # string.maketrans is bytes.maketrans in Python 3, but
 # we want to deal with strings instead of bytes
@@ -52,7 +52,7 @@ class Fasta(Mapping):
 
         slicing returns an object.
             >>> f['chr1']
-            FastaRecord('tests/data/three_chrs.fasta.flat', 0..80)
+            FastaRecord('tests/data/three_chrs.fasta', 6..86)
 
         extract sequence with normal python syntax
             >>> print(f['chr1'][:10])
@@ -151,7 +151,7 @@ class Fasta(Mapping):
             GT
 
             >>> sorted(f.index.items())
-            [('chr1', (0, 80)), ('chr2', (80, 160)), ('chr3', (160, 3760))]
+            [('chr1', (6, 86)), ('chr2', (93, 173)), ('chr3', (180, 3780))]
 
         NOTE: these 2 are reverse-complement-ary because of strand
         #>>> f.sequence({'start':10, 'stop':12, 'strand': -1, 'chr': 'chr1'})

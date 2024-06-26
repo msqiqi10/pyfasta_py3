@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from pyfasta import Fasta
 from pyfasta.records import NpyFastaRecord, MemoryRecord, FastaRecord
 record_classes = [NpyFastaRecord, MemoryRecord, FastaRecord]
@@ -65,7 +69,7 @@ def check_duplicates(klass, inplace):
 
 def check_keys(f):
     assert sorted(f.keys()) == ['chr1', 'chr2', 'chr3']
-    assert sorted(f.iterkeys()) == ['chr1', 'chr2', 'chr3']
+    assert sorted(f.keys()) == ['chr1', 'chr2', 'chr3']
 
 def fix(path):
     import os.path as op
@@ -108,7 +112,7 @@ def check_reload(klass, fasta_name):
 
 
 def check_full_slice(f):
-    for k in f.iterkeys():
+    for k in f.keys():
         assert str(f[k]) == f[k][:]
         assert str(f[k]) == f[k][0:]
 
